@@ -45,78 +45,143 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+
+  /* CourierPlus Design System - Light Theme */
+  /* Based on logistics warehouse theme with blue trucks and orange equipment */
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.15 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.15 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+
+  /* Primary blue inspired by delivery trucks */
+  --primary: rgb(123, 241, 168);
+  --primary-foreground: rgb(0, 0, 0);
+
+  /* Secondary orange inspired by warehouse equipment */
+  --secondary: oklch(0.65 0.22 50);
+  --secondary-foreground: oklch(0.99 0 0);
+
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --muted-foreground: oklch(0.6 0 0);
+  --accent: oklch(0.97 0.02 240);
+  --accent-foreground: oklch(0.15 0 0);
+
+  /* Status colors for package tracking */
+  --destructive: oklch(0.6 0.2 25);
+  --success: oklch(0.65 0.15 140);
+  --warning: oklch(0.7 0.18 70);
+  --info: oklch(0.65 0.15 250);
+
+  --border: oklch(0.94 0 0);
+  --input: oklch(0.97 0 0);
+  --ring: oklch(0.52 0.2 240);
+
+  /* Chart colors for logistics dashboards */
+  --chart-1: oklch(0.52 0.2 240); /* Primary blue */
+  --chart-2: oklch(0.65 0.22 50); /* Secondary orange */
+  --chart-3: oklch(0.65 0.15 140); /* Success green */
+  --chart-4: oklch(0.7 0.18 70); /* Warning yellow */
+  --chart-5: oklch(0.6 0.2 25); /* Danger red */
+
+  /* Sidebar styling */
+  --sidebar: oklch(0.99 0 0);
+  --sidebar-foreground: oklch(0.15 0 0);
+  --sidebar-primary: oklch(0.52 0.2 240);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.97 0.02 240);
+  --sidebar-accent-foreground: oklch(0.15 0 0);
+  --sidebar-border: oklch(0.94 0 0);
+  --sidebar-ring: oklch(0.52 0.2 240);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* CourierPlus Design System - Dark Theme */
+  /* Night shift warehouse operations theme */
+  --background: oklch(0.08 0 0);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.15 0 0);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.15 0 0);
+  --popover-foreground: oklch(0.97 0 0);
+
+  /* Brighter primary for dark theme visibility */
+  --primary: oklch(0.65 0.18 240);
+  --primary-foreground: oklch(0.08 0 0);
+
+  /* Warmer secondary for dark theme */
+  --secondary: oklch(0.7 0.2 50);
+  --secondary-foreground: oklch(0.08 0 0);
+
+  --muted: oklch(0.25 0 0);
+  --muted-foreground: oklch(0.6 0 0);
+  --accent: oklch(0.25 0.02 240);
+  --accent-foreground: oklch(0.97 0 0);
+
+  /* Dark theme status colors */
+  --destructive: oklch(0.65 0.18 25);
+  --success: oklch(0.7 0.18 140);
+  --warning: oklch(0.75 0.2 70);
+  --info: oklch(0.7 0.18 250);
+
+  --border: oklch(0.25 0 0);
+  --input: oklch(0.2 0 0);
+  --ring: oklch(0.65 0.18 240);
+
+  /* Dark theme chart colors */
+  --chart-1: oklch(0.65 0.18 240); /* Primary blue */
+  --chart-2: oklch(0.7 0.2 50); /* Secondary orange */
+  --chart-3: oklch(0.7 0.18 140); /* Success green */
+  --chart-4: oklch(0.75 0.2 70); /* Warning yellow */
+  --chart-5: oklch(0.65 0.18 25); /* Danger red */
+
+  /* Dark sidebar */
+  --sidebar: oklch(0.15 0 0);
+  --sidebar-foreground: oklch(0.97 0 0);
+  --sidebar-primary: oklch(0.65 0.18 240);
+  --sidebar-primary-foreground: oklch(0.08 0 0);
+  --sidebar-accent: oklch(0.25 0.02 240);
+  --sidebar-accent-foreground: oklch(0.97 0 0);
+  --sidebar-border: oklch(0.25 0 0);
+  --sidebar-ring: oklch(0.65 0.18 240);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  .bg-gradient-primary {
+    background-image: linear-gradient(
+      135deg,
+      rgb(123, 241, 168),
+      rgb(123, 241, 168)
+    );
+  }
+
+  .bg-gradient-hero {
+    background-image: linear-gradient(
+      135deg,
+      rgb(123, 241, 168) 0%,
+      rgb(123, 241, 168) 50%,
+      rgb(123, 241, 168) 100%
+    );
+  }
+
+  .gradient-subtle {
+    background-image: var(--gradient-subtle);
+  }
+
+  .shadow-logistics {
+    box-shadow: var(--shadow-logistics);
+  }
+
+  .bg-accent-btn {
+    background-color: rgba(137, 228, 129, 1);
   }
 }

@@ -1,23 +1,40 @@
-'use client';
+"use client";
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { useLogin } from '@/services/auth.service';
-import { toast } from 'sonner';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useLogin } from "@/services/auth.service";
+import { toast } from "sonner";
+import { SecureInput } from "../ui/secure-input";
+import Link from "next/link";
 
 const loginSchema = z.object({
-  email: z.string().email('Email invalide'),
-  password: z.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères'),
+  email: z
+    .string()
+    .min(1, "L'adresse email est requise")
+    .email("Adresse email invalide"),
+  password: z
+    .string()
+    .min(1, "L'adresse email est requise")
+    .min(6, "Le mot de passe doit contenir au moins 6 caractères"),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
+  const loginMutation = useLogin();
+
   const {
     register,
     handleSubmit,
@@ -26,14 +43,12 @@ export function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const loginMutation = useLogin();
-
   const onSubmit = async (data: LoginFormData) => {
     try {
       await loginMutation.mutateAsync(data);
-      toast.success('Connexion réussie !');
+      toast.success("Connexion réussie !");
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Erreur de connexion');
+      toast.error(error.response?.data?.message || "Erreur de connexion");
     }
   };
 
@@ -44,14 +59,14 @@ export function LoginForm() {
         <CardDescription>Connectez-vous à votre compte</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-5 mb-5">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
               placeholder="votre@email.com"
-              {...register('email')}
+              {...register("email")}
             />
             {errors.email && (
               <p className="text-sm text-red-500">{errors.email.message}</p>
@@ -59,24 +74,31 @@ export function LoginForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Mot de passe</Label>
-            <Input
+            <SecureInput
               id="password"
-              type="password"
               placeholder="••••••••"
-              {...register('password')}
+              {...register("password")}
             />
             {errors.password && (
               <p className="text-sm text-red-500">{errors.password.message}</p>
             )}
+            <div className="flex justify-end">
+              <Link
+                href="/forgot-password"
+                className="text-sm text-gray-600 hover:text-gray-900 hover:underline transition-colors"
+              >
+                Mot de passe oublié ?
+              </Link>
+            </div>
           </div>
         </CardContent>
         <CardFooter>
-          <Button 
-            type="submit" 
-            className="w-full" 
+          <Button
+            type="submit"
+            className="w-full"
             disabled={loginMutation.isPending}
           >
-            {loginMutation.isPending ? 'Connexion...' : 'Se connecter'}
+            {loginMutation.isPending ? "Connexion..." : "Se connecter"}
           </Button>
         </CardFooter>
       </form>
