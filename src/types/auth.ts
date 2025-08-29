@@ -1,5 +1,5 @@
 // Énumérations
-export type UserRole = 'admin' | 'coursier' | 'client';
+export type UserRole = "Admin" | "Coursier" | "Client";
 
 // Interface User étendue
 export interface User {
@@ -24,14 +24,13 @@ export interface LoginRequest {
 }
 
 export interface CreateUserRequest {
-  firstName: string;
+  firstName?: string;
   lastName: string;
   email: string;
   phone?: string;
   password: string;
-  confirmPassword: string;
-  role: UserRole;
-  isActive: boolean;
+  isActive?: boolean;
+  roleId?: string; // UUID du rôle (optionnel)
 }
 
 export interface RegisterRequest {
@@ -161,7 +160,12 @@ export interface Session {
 }
 
 // Types utilitaires
-export type AuthStatus = 'idle' | 'loading' | 'authenticated' | 'unauthenticated' | 'error';
+export type AuthStatus =
+  | "idle"
+  | "loading"
+  | "authenticated"
+  | "unauthenticated"
+  | "error";
 
 export interface AuthConfig {
   apiUrl: string;

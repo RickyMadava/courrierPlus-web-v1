@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useLogin } from "@/services/auth.service";
+import { useLogin } from "@/hooks/auth/use-login";
 import { toast } from "sonner";
 import { SecureInput } from "../ui/secure-input";
 import Link from "next/link";

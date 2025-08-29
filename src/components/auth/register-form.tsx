@@ -25,12 +25,8 @@ import {
 import { toast } from "sonner";
 import { SecureInput } from "../ui/secure-input";
 import { AxiosError } from "axios";
-
-const roles = [
-  { value: "admin", label: "Administrateur" },
-  { value: "coursier", label: "Coursier" },
-  { value: "client", label: "Client" },
-];
+import { useRegister } from "@/hooks/auth/use-register";
+import { useRoles } from "@/hooks/auth/use-roles";
 
 const registerSchema = z
   .object({
@@ -63,7 +59,7 @@ const registerSchema = z
       .string()
       .min(1, "La confirmation du mot de passe est requise"),
     isActive: z.boolean(),
-    role: z.string().min(1, "Le rôle est requis"),
+    roleId: z.string().min(1, "Le rôle est requis"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Les mots de passe ne correspondent pas",
@@ -73,6 +69,13 @@ const registerSchema = z
 type RegisterFormData = z.infer<typeof registerSchema>;
 
 export function RegisterForm() {
+  const registerMutation = useRegister();
+  const {
+    data: roles,
+    isLoading: rolesLoading,
+    error: rolesError,
+  } = useRoles();
+
   const {
     register,
     handleSubmit,
@@ -89,14 +92,21 @@ export function RegisterForm() {
       password: "",
       confirmPassword: "",
       isActive: true,
-      role: "",
+      roleId: "",
     },
   });
 
   const onSubmit = async (data: RegisterFormData) => {
     try {
-      // TODO: Implement registration logic
-      console.log("Registration data:", data);
+      await registerMutation.mutateAsync({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phone: data.phone,
+        password: data.password,
+        isActive: data.isActive,
+        roleId: data.roleId,
+      });
       toast.success("Inscription réussie !");
     } catch (error: any) {
       toast.error(
@@ -143,20 +153,38 @@ export function RegisterForm() {
             </div>
             <div className="space-y-2 w-full md:w-64">
               <Label htmlFor="role">Rôle</Label>
-              <Select onValueChange={(value) => setValue("role", value)}>
+              <Select
+                onValueChange={(value) => setValue("roleId", value)}
+                disabled={rolesLoading}
+              >
                 <SelectTrigger>
-                  <SelectValue placeholder="Sélectionnez un rôle" />
+                  <SelectValue
+                    placeholder={
+                      rolesLoading
+                        ? "Chargement des rôles..."
+                        : rolesError
+                        ? "Erreur de chargement"
+                        : "Sélectionnez un rôle"
+                    }
+                  />
                 </SelectTrigger>
                 <SelectContent>
-                  {roles.map((role) => (
-                    <SelectItem key={role.value} value={role.value}>
-                      {role.label}
-                    </SelectItem>
-                  ))}
+                  {roles &&
+                    Array.isArray(roles) &&
+                    roles.map((role) => (
+                      <SelectItem key={role.id} value={role.id}>
+                        {role.name}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
-              {errors.role && (
-                <p className="text-sm text-red-500">{errors.role.message}</p>
+              {errors.roleId && (
+                <p className="text-sm text-red-500">{errors.roleId.message}</p>
+              )}
+              {rolesError && (
+                <p className="text-sm text-red-500">
+                  Erreur lors du chargement des rôles
+                </p>
               )}
             </div>
           </div>
