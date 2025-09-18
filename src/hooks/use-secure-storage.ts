@@ -16,7 +16,7 @@ export const useSecureStorage = (key: string, initialValue: any, options: Secure
       const item = Cookies.get(key);
       if (!item) return initialValue;
       
-      let parsed = JSON.parse(item);
+      const parsed = JSON.parse(item);
       
       // Check for expiry
       if (parsed.expiry && Date.now() > parsed.expiry) {

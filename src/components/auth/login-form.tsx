@@ -18,6 +18,7 @@ import { useLogin } from "@/hooks/auth/use-login";
 import { toast } from "sonner";
 import { SecureInput } from "../ui/secure-input";
 import Link from "next/link";
+import { useAuthStore } from "@/stores/auth-store";
 
 const loginSchema = z.object({
   email: z
@@ -33,6 +34,7 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
+  const { isAuthenticated, user } = useAuthStore();
   const loginMutation = useLogin();
 
   const {
@@ -51,6 +53,10 @@ export function LoginForm() {
       toast.error(error.response?.data?.message || "Erreur de connexion");
     }
   };
+
+  if (isAuthenticated && user) {
+    return null;
+  }
 
   return (
     <Card className="w-full max-w-md mx-auto">

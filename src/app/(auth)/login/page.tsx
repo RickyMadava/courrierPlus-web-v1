@@ -7,7 +7,8 @@ import { redirect } from "next/navigation";
 export default async function LoginPage() {
   // Vérifier si l'utilisateur est déjà connecté
   const session = await getServerSession(authOptions);
-  
+  console.log("[SESSION]", session);
+
   if (session) {
     // Rediriger vers le dashboard si déjà connecté
     redirect("/dashboard");
