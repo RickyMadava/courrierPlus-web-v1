@@ -2,13 +2,6 @@ import { create, ApiResponse, ApisauceInstance } from 'apisauce';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
-// Callback pour nettoyer l'auth store quand les tokens expirent
-let authLogoutCallback: (() => void) | null = null;
-
-export const setAuthLogoutCallback = (callback: () => void) => {
-  authLogoutCallback = callback;
-};
-
 export class ApiError extends Error {
   constructor(public status: number, message: string, public data?: unknown) {
     super(message);
@@ -50,7 +43,6 @@ const processQueue = (error: unknown, token: string | null = null) => {
 // Remove manual token handling - cookies are sent automatically
 
 // Add response interceptor for token refresh
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 api.addResponseTransform(async (response: any) => {
   if (response.status === 401 && !response.config._retry) {
     if (isRefreshing) {
@@ -83,13 +75,8 @@ api.addResponseTransform(async (response: any) => {
     } catch (refreshError) {
       processQueue(refreshError, null);
       
-      // Refresh failed - clear auth store and redirect to login
+      // Refresh failed, redirect to login
       if (typeof window !== 'undefined') {
-        // Clear auth store via callback if available
-        if (authLogoutCallback) {
-          authLogoutCallback();
-        }
-        
         window.location.href = '/login';
       }
       
